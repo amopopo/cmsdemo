@@ -1,0 +1,3 @@
+RewriteEngine on
+
+AddType application/x-httpd-php .html

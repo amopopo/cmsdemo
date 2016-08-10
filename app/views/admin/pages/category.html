@@ -1,0 +1,41 @@
+<div id="button_wrapper">
+<form method="post" <?php common::formAction($use->group."/".$use->controller,'add');?>>
+<div id="button"><input type="submit" name="submit" value="New Page" /></div>
+</form>
+<form method="post" <?php common::formAction($use->group."/".$use->controller,'add_category');?>>
+<div id="button"><input type="submit" name="submit" value="New Category" /></div>
+</form>
+</div>
+<div class="clear"></div>
+
+<div id="tabmenu">
+<ul>
+<li><a href="<?php echo common::Path($use->group.'/'.$use->controller, 'index'); ?>" title="Pages">Pages</a></li>
+<li id="current" class="right"><a href="<?php echo common::Path($use->group.'/'.$use->controller, 'category');?>" title="Categories">Categories</a></li>
+</ul>
+</div><div class="clear"></div>
+
+<table id='tabledata'>
+<tr>
+<th width="250">Title</th>
+<th width="150">Alias</th>
+<th>Template</th>
+<th width='50px'">Active</th>
+<th width="20px">&nbsp;</th>
+</tr>
+<?php if (!empty($use->var['listing'])) {
+	foreach ($use->var['listing'] as $key=>$value) { ?>	
+	<tr>
+	<td><?php echo common::LinkTo($use->group.'/'.$use->controller, 'edit_category', $value->title, array($value->id)); ?></td>
+	<td><?php echo common::LinkTo($use->group.'/'.$use->controller, 'edit_category', $value->alias, array($value->id)); ?></td>
+	<td><?php echo $value->template; ?></td>
+	<td><?php echo yesNo($value->active);?></td>
+	<td align="center"><?php 
+			echo common::imageLinkTo($use->group.'/'.$use->controller,'delete_category',"trash.gif",array($value->id),"onclick=\"javascript:return confirm('Are you sure you want to delete this category?');\" ");
+	?></td>
+	</tr>
+<?php }} else { ?>
+	<tr><td colspan="5" align="center">No records</td></tr>
+<?php } ?>
+</table>
+<?php echo common::page($use->var['pagination']->records, $use->var['pagination']->page_no, $use->var['pagination']->page, $use->group, $use->controller, $use->action); ?>

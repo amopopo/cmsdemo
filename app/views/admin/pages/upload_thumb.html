@@ -1,0 +1,59 @@
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+<head><title>Upload Image</title>
+	<link rel="stylesheet" href="<?php echo CSS_PATH; ?>popup.css" type="text/css" media="screen" />
+	<script language="javascript" type="text/javascript" src="<?php echo JAVASCRIPT_PATH; ?>common.js"></script>
+</head>
+<body>
+<script type="text/javascript">
+	//<![CDATA[	
+	function returnValue(){   
+		if(opener.document.getElementById('thumbimg')){
+		 	opener.document.getElementById('thumbimg').innerHTML = "<img src='<?php echo $file1_display;?>' style='border:1px solid black;' align='top'>";
+		}
+		opener.document.getElementById('removbuttn').style.display = "block";
+		self.close();
+	}
+	//]]>
+</script>
+<div id="wrapper">
+<div id="content_wrapper">
+<div id="content">
+<div id="form">
+<div id="error_container"><?php if (!empty($this->var['errors'])) { $errors = $this->var['errors']; ?>
+	<div id="error" onclick="expand('error');" ><div id="error_msg"><ul>
+<?php foreach($errors as $ek=>$ev){ ?>
+	<li>- <?php echo $errors[$ek]; ?></li>
+<?php }?>
+	</ul></div></div><br />
+<?php } ?>
+</div>
+
+<div class="clear"></div>
+
+<div id="fieldset_title">Upload Thumbnail</div>
+<form method="post" enctype="multipart/form-data">
+<fieldset>
+<dl>
+<dd><input type="file" name="myfile" /><br />
+
+</dd></dl>
+
+	<div class="clear"></div>
+	<?php common::error_msg($this->var['errors'], 'addImg'); ?>
+	<p><b>Note :</b>Note: Image with same name will be replaced automatically.</p>
+</fieldset>
+<br />
+<div id="button"><input type="submit" name="upload" class="button" value="Upload" /></div>
+</form>
+</div>
+</div>
+</div>
+<script type="text/javascript">
+    //<![CDATA[
+	<?php if($close==true){?>
+	returnValue();
+	<?php }?>
+    //]]>
+</script>
+</body>
+</html>

@@ -1,0 +1,26 @@
+1) added search and replace for database for quick change server.
+
+2) add position in blog_content table.
+
+3) add delete and archive,view for archieve page, and search function for pages.
+
+4) upload thumbnail in pop up window not same window as this doesn't update other post value. 
+a) admin/page_controller.php
+b) blog_content.php
+c) view/admin/pages : add, edit, upload_thumb
+d)common_helpers.php (formatSize function)
+e) add metakey, metadesc, trackingcode in sys_settings
+   - settings/index, settings/update_settings, sys_settings.php
+   - home/header.html, header_include.html, footer.html
+   - categories, pages controller ( added seo(); in beforefilter)
+f) metakey, metadesc added in blog_content table and blog_category table.
+    - home/categoriesController, show-> mkmetakey & mkmetadesc
+   - home/pagesController, show-> mkmetakey & mkmetadesc
+    - lib/controllerbase seo()
+    - header_include.html, header.html,show.html
+
+
+
+
+
+

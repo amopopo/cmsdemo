@@ -1,0 +1,29 @@
+CHANGELOG file
+jGalleryView2 module for PrestaShop
+
+
+v.1.3.2 - 2010-07-28 (r.38)
+--------------------------------------------
+Extension of slides number (more than 10). Thanks to Marc a.k.a. Driveman !
+Correct an error reveal by Jolvil
+Correct a minor html error
+Add italian translation. Thanks to Luigi !
+Add Persian language. Thanks to Roozbeh Aghabaighi !
+Add Luthanian translation. Thanks to Evaldas Belevicius !
+Update french translation
+
+
+v.1.2.1 - 2010-04-02 (r.22)
+--------------------------------------------
+Add polish translation. Thanks to Jakub !
+Correct path to upload directory
+Add Turkish translation. Thanks to Safa !
+Create a template for iPrestaShop theme.
+Change panel size for better integration in default theme.
+
+
+v.1.2.0 - 2010-03-19 (r.10)
+--------------------------------------------
+First version of this module with example datas and images.
+Add french translation.
+

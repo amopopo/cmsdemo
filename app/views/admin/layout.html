@@ -1,0 +1,84 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+<head><title>CMS</title>
+	<link rel="stylesheet" href="<?php echo CSS_PATH;?>admin.css" type="text/css" media="screen" />
+	<link rel="stylesheet" href="<?php echo CSS_PATH;?>calendar.css" type="text/css" media="screen" />
+	<link rel="stylesheet" href="<?php echo JAVASCRIPT_PATH; ?>lightbox/css/lightbox.css" type="text/css" media="screen" />
+	<script language="javascript" type="text/javascript" src="<?php echo JAVASCRIPT_PATH; ?>common.js"></script>
+	<script language="javascript" type="text/javascript" src="<?php echo JAVASCRIPT_PATH; ?>menu.js"></script>
+	<script language="javascript" type="text/javascript" src="<?php echo JAVASCRIPT_PATH; ?>calendar.js"></script>
+	<script language="javascript" type="text/javascript" src="<?php echo JAVASCRIPT_PATH; ?>jquery.js"></script>
+	<script language="javascript" type="text/javascript" src="<?php echo JAVASCRIPT_PATH; ?>tiny_mce/tiny_mce.js"></script>
+</head>
+<body>
+<script type="text/javascript">
+<?php $count=0; $temp_group=''; foreach( $use->var['mainmenu'] as $action ){
+if($action->no_display==0){
+if ($action->menu_grp != $temp_group){ echo "var ".$action->menu_grp."=new Array()\n"; $temp_group = $action->menu_grp; $count=0; }
+if ($action->menu_grp!=''){
+if ($action->controller == $use->controller && $action->menu_grp == $use->group && ($action->action == $use->action OR $action->permission == 'all')){ ?>
+<?php echo $action->menu_grp.'['.$count.']=\'<a href="'.common::Path($use->group.'/'.$action->controller,$action->action).'">'.$action->name.'</a>\''."\n"; $title = $action->name; $my_image = $action->menu_grp . '_' . $action->controller . '.gif'; ?>
+<?php }else{ ?>
+<?php echo $action->menu_grp.'['.$count.']=\'<a href="'.common::Path($use->group.'/'.$action->controller,$action->action).'">'.$action->name.'</a>\''."\n"; ?>
+<?php } $count++; 
+}else{
+if ($action->controller == $use->controller && $action->menu_grp == $use->group && ($action->action == $use->action OR $action->permission == 'all')){
+$title = $action->name; $my_image = $action->menu_grp . '_' . $action->controller . '.gif';
+}
+}
+} 
+}
+?>
+</script>
+<div id="header_wrapper">
+	<div id="menuwrapper">
+	<div id="primary_tabs">						
+	<ul>
+	<?php if(isset($use->var['displaymenu'])){
+	foreach($use->var['displaymenu'] as $tab ){ //print_r($tab);
+		if($tab->no_display==0){ 
+		if($tab->menu_grp ==''){ ?>
+			<li <?php if($use->controller==$tab->controller){echo "id='current'";}?>><a href="<?php echo common::Path($use->group.'/'.$tab->controller,$tab->action);?>"><span>Dashboard</span></a></li>
+	<?php }else{
+			if (isset($use->var['displaygrp'][$use->controller]) && $use->var['displaygrp'][$use->controller] == $tab->menu_grp){ ?>
+				<li id="current"><a href="#" <?php echo 'id="'.$tab->menu_grp.'" onClick="return dropdownmenu(this, event, '.$tab->menu_grp.', \'150px\', \''.$tab->menu_grp.'\')" onMouseDown="delayhidemenu()"'; ?>><span><?php echo ucfirst($tab->menu_grp).' &#43;'; ?></span></a></li>
+			<?php }else{ ?>
+				<li><a href="#" <?php echo 'id="'.$tab->menu_grp.'" onClick="return dropdownmenu(this, event, '.$tab->menu_grp.', \'150px\', \''.$tab->menu_grp.'\')" onMouseDown="delayhidemenu()"'; ?>><span><?php echo ucfirst($tab->menu_grp).' &#43;'; ?></span></a></li>
+			<?php } 
+		}}//end no display
+	 } }?>
+	</ul>	
+	</div>
+	
+	<div id="registerDiv">
+	<div id="reg">
+		Welcome, <?php echo $_SESSION['auth']->name;?>&nbsp;&nbsp;&nbsp;-&nbsp;&nbsp;&nbsp;
+		<a href="<?php echo HTTP_PATH;?>" title="Website" target='_blank'>Visit Website</a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
+		<?php echo common::LinkTo('auth','logout','Logout');?>
+	</div><div class="clear"></div>
+	</div>
+	<div class="clear">	</div>
+	</div>
+</div>
+<div id="page_wrapper">
+<div id="page_title"><?php if (isset($use->var['displaygrp'][$use->controller])){echo ucfirst($use->var['displaygrp'][$use->controller]).' &gt; ';}  if(isset($use->var['cur_controller'])){echo ucfirst($use->var['cur_controller']);}?></div>
+</div>
+<div id="wrapper">
+<div id="content_wrapper">
+	<div id="content">
+	<?php include($view_path);?>
+	<div class="clear"></div>
+	</div>
+</div>
+</div><br /><br />
+
+<div id="footer_wrapper">
+<div id="footer">
+	<div id="left">Copyright &copy; mikyadesign.com . All Rights Reserved</div>
+	<div id="right">mkcms version 1.1</div>
+	<div class="clear"></div>
+</div>
+</div>
+<div id="loading_status_bar">Loading...</div>
+</body>
+</html>

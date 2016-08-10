@@ -1,0 +1,59 @@
+<?php include(VIEW_PATH.$this->group."/header_include.html");?>
+<?php 
+function param($name){
+	if (isset($_POST[$name]) && $_POST[$name] != ''){ return addslashes($_POST[$name]); }else{ return ""; }
+}
+$sent = '';$errors = array();
+if (isset($_POST['submit']) && $_POST['submit'] == 'Send'){
+	if (isset($_POST['name']) && $_POST['name'] != ''){}else{$errors["name"] = "name"; }
+	if (isset($_POST['message']) && $_POST['message'] != ''){}else{$errors["message"] = "Mesage"; }
+	if (isset($_POST['email']) && $_POST['email'] != ''){}else{$errors["email"] = "Email"; }
+	if (empty($errors)){
+		$to = "enquiry@mikyadesign.com";
+		$subject = "Online enquiry from " . param("contact") . " of " . param("company");
+		$body = "************************** www.sabrefox.com **************************" . "\n\n" .
+			param("contact") . ", " . param("designation") . " from " . param("company") . "\n" .
+			"Telephone: " . param("telephone") . "\n".
+			"Email: " . param("email") . "\n\n" .
+			"************************** www.sabrefox.com **************************" . "\n\n" .
+			param("contact") . " will like to know more about :\n\n" . 
+			"\n" . "Creative Solutions: " . param("creative") . "\n\n" . 
+			"eDesign Solutions: " . param("edesign") . "\n\n" . 
+			"eSolutions: " . param("esolution") . "\n\n" . 
+			"Has also other enquiry: \n" . param("enquiry") . "\n\n" . 
+			"They find us through: " . param("findus");
+		$header = "From: apache@sabrefox.com" . "\r\n" . "X-Mailer: php";
+		mail($to, $subject, $body, $header);
+		$sent = "SENT";
+		unset($_POST);
+	}
+}
+?>
+<!-- content -->
+	<div id="content">
+		<div class="row-1">
+			<div class="inside">
+				<div class="container">
+				<?php include(VIEW_PATH.$this->group."/sidebar.html");?>
+				
+					<div class="content">
+					<?php if($sent=='SENT'){?>
+						<p style="border:2px solid #5F9E00;padding:3px;">Your message has been sent.</p><?php } ?>
+						<h3><?php echo $this->var['content']->title;?></h3>
+						<form method="post" id="contacts-form" action="">
+							<fieldset>
+							<div class="field"><label>Name:</label><input name="name" <?php if(isset($errors['name'])){echo "style='border:2px solid #ff0000;'";}?> type="text" value=""/></div>
+							<div class="field"><label>E-mail:</label><input type="text" name="email" value="" <?php if(isset($errors['email'])){echo "style='border:2px solid #ff0000;'";}?> /></div>
+							<div class="field"><label>Message:</label><textarea name="message" cols="1" rows="1" <?php if(isset($errors['message'])){echo "style='border:2px solid #ff0000;'";}?>></textarea></div>
+							<div class="button">
+								<input type="submit" id="button" name="submit" value="Send" />
+							</div>
+							</fieldset>
+						</form>
+					</div>
+					<div class="clear"></div>
+				</div>
+			</div>
+		</div>
+</div>
+<?php include(VIEW_PATH.$this->group."/footer.html");?>

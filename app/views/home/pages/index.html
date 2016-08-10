@@ -1,0 +1,62 @@
+<!-- content -->
+	<div id="content">
+		<div class="row-1">
+			<div class="inside">
+				<div class="container">
+				<?php include(VIEW_PATH.$use->group."/sidebar.html");?>
+					<div class="content">
+						<h3><?php echo $use->var['content']->title;?></h3>
+						<p class="txt1"><?php echo $use->var['content']->short_desc;?></p>
+						<div class="img-box1 alt"><?php echo $use->var['content']->content;?></div>
+					</div>
+					<div class="clear"></div>
+				</div>
+			</div>
+		</div>
+		<?php if(isset($use->var['sliderimg']) && !empty($use->var['sliderimg'])){?>
+		<div class="tail-middle">
+			<div class="row-2">
+				<div class="inside">
+					<h3>Recent Articles</h3>
+					<div class="carousel-box">
+						<div class="prev"><a href="#"><img src="<?php echo IMAGE_PATH;?>prev.png" alt="" /></a></div>
+						<div class="next"><a href="#"><img src="<?php echo IMAGE_PATH;?>next.png" alt="" /></a></div>
+						<div class="carousel">
+							<ul>
+							<?php $count =0;
+							foreach($use->var['sliderimg'] as $key=>$value){?>
+								<li><div class="box">
+									<div class="border-top">
+									<div class="border-bot">
+									<div class="left-top-corner">
+									<div class="right-top-corner">
+									<div class="right-bot-corner">
+									<div class="left-bot-corner">
+									<div class="img-box2">
+									<img src="<?php echo $value->value;?>" alt="" />
+											<div class="inner">
+											<?php if(isset($use->var['slidertitle']) && isset($use->var['slidertitle'][$count])){?>
+												<h4><?php echo $use->var['slidertitle'][$count];?></h4>
+											<?php }?>
+											<?php if(isset($use->var['slidercontent']) && isset($use->var['slidercontent'][$count])){?>
+												<?php echo $use->var['slidercontent'][$count];?>
+											<?php }?>
+											</div>
+									</div>
+									</div>
+									</div>
+									</div>
+									</div>
+									</div>
+									</div>
+								</div></li>
+							<?php $count++;
+							 }?>
+							</ul>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	<?php }?>
+</div>

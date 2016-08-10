@@ -1,0 +1,18 @@
+<?php include(VIEW_PATH.$this->group."/header_include.html");?>
+<!-- content -->
+	<div id="content">
+		<div class="row-1">
+			<div class="inside">
+				<div class="container">
+				<?php include(VIEW_PATH.$this->group."/sidebar.html");?>
+				
+					<div class="content">
+						<h3><?php echo $this->var['content']->title;?></h3>
+						<?php echo $this->var['content']->content;?>
+					</div>
+					<div class="clear"></div>
+				</div>
+			</div>
+		</div>
+</div>
+<?php include(VIEW_PATH.$this->group."/footer.html");?>

@@ -1,0 +1,83 @@
+<script language="javascript" type="text/javascript">
+var cal_start = new CalendarPopup('cal_div');cal_start.showYearNavigation();cal_start.showYearNavigationInput();
+</script>
+
+<?php $date_format = $_SESSION['auth']->date_format; 
+	$date_format =  js_formatDate($date_format); 
+?>
+<div id='error_container'><?php if (!empty($use->var['errors'])){ 
+$errors = $use->var['errors'];
+if(isset($errors['error'])){?>
+<div id='error' onclick="expand('error');" >
+<div id='error_msg'>
+<ul><li><?php echo ( $errors['error']); ?></li></ul>
+</div>
+</div>
+<?php }} ?></div>
+
+<form method="post" name="myform">
+<div id="fieldset_title">Edit User</div>
+<fieldset><legend>System Account</legend>
+<div id="bracket">
+<dl><dt>Username</dt><dd><?php echo $use->var['user']->username; ?></dd></dl>
+<dl><dt>* Role</dt>
+	<dd><select <?php common::error_box( $use->var['errors'],'role'); ?> name="role" title="Role">
+	<option value="">None</option>
+	<?php if(!empty($use->var['role'])){
+	foreach($use->var['role'] as $key=>$value){ ?>
+	<option value="<?php echo $value->id; ?>" <?php if(common::setField('role',$use->var['user']->sys_role_id)==$value->id){echo "selected='selected'";}?>><?php echo $value->name; ?></option>
+	<?php }}?>
+	</select>
+	<?php common::error_msg( $use->var['errors'],'role'); ?>
+</dd>
+</dl><div class="clear"><br></div>
+<dl><dt>Password</dt>
+<dd><input <?php common::error_box($use->var['errors'],'pssword'); ?> type="password" name="pssword" value="<?php echo common::setPost('pssword'); ?>" title='Password'>
+<?php common::error_msg($use->var['errors'],'pssword'); ?></dd></dl>
+<dl><dt>Confirm Password</dt>
+<dd><input <?php common::error_box($use->var['errors'],'Cpassword'); ?> type="password" name="Cpassword" value="<?php echo common::setPost('Cpassword'); ?>" title='Confirm Password'>
+<?php common::error_msg($use->var['errors'],'Cpassword'); ?></dd></dl>
+</div>
+<div id="bracket">
+<dl><dt>Suspend Account</dt><dd><input type="checkbox" name="suspend" <?php if($use->var['user']->suspend==1){echo "checked='checked'";}; ?>></dd></dl>
+</div><br />
+</fieldset><br>
+
+<fieldset><legend>Personal Details</legend>
+<div id="bracket">
+<dl><dt>* Email Address</dt>
+<dd><input <?php common::error_box($use->var['errors'],'email'); ?> type="text" name="email" value="<?php echo common::setField("email",$use->var['user']->email); ?>" title='Email Address' size="40">
+<?php common::error_msg( $use->var['errors'],'email'); ?></dd></dl>
+<dl><dt>* First Name</dt>
+	<dd><input <?php common::error_box( $use->var['errors'],'first_name'); ?> type='text' name="first_name" value="<?php echo common::setField('first_name',$use->var['user']->first_name); ?>" >
+	<?php common::error_msg( $use->var['errors'],'first_name'); ?>
+</dd>
+</dl>
+<dl><dt>* Last Name</dt>
+	<dd><input <?php common::error_box( $use->var['errors'],'last_name'); ?> type='text' name="last_name"  value="<?php echo common::setField('last_name',$use->var['user']->last_name); ?>" >
+	<?php common::error_msg( $use->var['errors'],'last_name'); ?>
+</dd>
+</dl>
+</div>
+<div id="bracket">
+<dl><dt>Date of Birth</dt>
+<dd><input <?php common::error_box($use->var['errors'],'dob'); ?> type="text" name="dob" size="10" value="<?php echo common::setField('dob',formatDate($use->var['user']->dob)); ?>" title='Date of Birth'>
+<a href="#" onClick="cal_start.select(document.myform.dob,'anchor1','<?php echo $date_format; ?>'); return false;" NAME="anchor1" ID="anchor1" title="Pick A Date">
+<img src='<?php echo IMAGE_PATH; ?>calendar.gif'></a> 
+<?php common::error_msg($use->var['errors'],'dob'); ?></dd>
+</dl><br>
+</div><br />
+</fieldset><br>
+
+
+
+<div id="button_wrapper">
+<div id="button"><input type="submit" name="save" value="Save"></div>
+</form>
+<form method="post" <?php common::formAction($use->group.'/'.$use->controller, 'index'); ?>>
+<div id="negative"><input type="submit" name="submit" value="Cancel" onclick="return confirm('Changes will not be saved. Do you wish to continue?');" ></div>
+</form>
+</div>
+<div id="cal_div"></div>
+
+

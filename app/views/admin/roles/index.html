@@ -1,0 +1,33 @@
+<div id="button_wrapper">
+<form method="post" <?php common::formAction($use->group."/".$use->controller,'add');?>>
+<div id="button"><input type="submit" name="submit" value="New Role" /></div>
+</form>
+</div>
+<div class="clear"></div>
+
+<table id='tabledata'>
+<tr>
+<th width="20px">#</th>
+<th>Role</th>
+<th width="20px">&nbsp;</th>
+</tr>
+<?php if(!empty($use->var['roles'])){ $count =0; 
+	foreach($use->var['roles'] as $key=>$value){ $count++; ?>	
+	<tr>
+	<td><?php echo $count;?></td>
+	<td><?php if($value->no_delete == 0){
+		echo common::LinkTo($use->group.'/'.$use->controller,'edit',$value->name,array($value->id));
+	}else{
+		echo common::LinkTo($use->group.'/'.$use->controller,'view',$value->name,array($value->id));
+	}
+	?></td>
+	<td align="center"><?php if($value->no_delete==0){
+			echo common::imageLinkTo($use->group.'/'.$use->controller,'delete',"trash.gif",array($value->id),"onclick=\"return confirm('Are you sure you want to delete this role?');\" ");
+		}else{
+			echo common::imagePath('lock.png',"Locked");
+		}?></td>
+	</tr>
+<?php }}else{?>
+	<tr><td colspan="3" align="center">No records</td></tr>
+<?php }?>
+</table>

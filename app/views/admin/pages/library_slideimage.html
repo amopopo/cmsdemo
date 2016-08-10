@@ -1,0 +1,114 @@
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+<head><title>Upload Image</title>
+	<link rel="stylesheet" href="<?php echo CSS_PATH; ?>popup.css" type="text/css" media="screen" />
+	<link rel="stylesheet" href="<?php echo CSS_PATH; ?>styleAdmin.css" type="text/css" media="screen" />
+	<script language="javascript" type="text/javascript" src="<?php echo JAVASCRIPT_PATH; ?>common.js"></script>
+</head>
+<body>
+<script type="text/javascript">
+	//<![CDATA[
+	function changefolder(value){
+		var url ="<?php echo common::Path($this->group.'/'.$this->controller,$this->action.'/'.$param.'/'.$item_type.'/');?>";
+		window.location= url + value;
+	}
+	
+	function returnValue(){
+		var param = "<?php echo $param;?>";
+		var folder_display_path = "<?php echo $folder_display_path;?>";
+		if(document.myform.file1){
+			var file1 = get_radio_value(document.myform.file1);
+			if(file1!=''){
+				setValue(opener.document.myform["value1_"+param],folder_display_path+file1);
+			}
+		}
+		if(document.myform.file2){
+			var file2 = get_radio_value(document.myform.file2);
+			if(file2!=''){
+				setValue(opener.document.myform["value2_"+param],folder_display_path+file2);
+			}
+		}
+		self.close();
+	}
+	
+	function setValue(objTarget, strValue) {
+		if (!objTarget) { return null; }
+		objTarget.value = strValue;
+	}
+	//]]>
+</script>
+<div id="wrapper">
+<div id="content_wrapper">
+<div id="content">
+<div id="form">
+<div id="error_container"><?php if (!empty($this->var['errors'])) { $errors = $this->var['errors']; ?>
+	<div id="error" onclick="expand('error');" ><div id="error_msg"><ul>
+<?php foreach($errors as $ek=>$ev){ ?>
+	<li>- <?php echo $errors[$ek]; ?></li>
+<?php }?>
+	</ul></div></div><br />
+<?php } ?>
+</div>
+
+<div class="clear"></div>
+
+<div id="tabmenu">
+<ul>
+<li><a href="<?php echo common::Path($this->group.'/'.$this->controller, 'upload_image/'.$param.'/'.$item_type); ?>" title="Upload Image">Upload Image</a></li>
+<li id="current"><a href="<?php echo common::Path($this->group.'/'.$this->controller, 'library_slideimage/'.$param.'/'.$item_type);?>" title="Library">Insert from Library</a></li>
+</ul>
+</div><div class="clear"></div>
+<div id="fieldset_title">View Folder
+<select name="folder" onChange="changefolder(this.value);">
+    <option value="">Choose a folder to view image</option>
+	<?php if(!empty($this->var['folder'])){
+	foreach($this->var['folder'] as $fk=>$fv){?>
+	<option value="<?php echo $fv;?>" <?php if($param_folder == $fv){echo "selected='selected'";}?>><?php echo $fv;?></option>
+	<?php }}?>
+</select>
+
+</div>
+<form method="post" name='myform'>
+<?php if(!empty($this->var['file'])){$count=0; ?>
+<table>
+<?php foreach($this->var['file'] as $k=>$v){$count++;?>
+	<?php if($count >4){?>
+	</tr>
+    <tr>
+	<?php $count =1;}?>
+	<td><img src="<?php echo $v['link'];?>" width="100" height="100" alt="" /><br />
+	<?php if($item_type=='image'){?><input type="radio" name="file1" id='file1' value="<?php echo $v['name'];?>" /><?php } ?>
+	 <?php echo $v['name'];?><br />
+	<?php echo $v['width'].'x'.$v['height'];?><br />
+	<input type="text" name="test" value="<?php echo $v['link'];?>" size="20" /><br />
+	<?php if($item_type=='slideimage'){?>
+		<input type="radio" name="file1" id='file1' value="<?php echo $v['name'];?>" /> Slide image<br />
+		<input type="radio" name="file2" id='file2' value="<?php echo $v['name'];?>" /> Slide image thumbnail<br />
+	<?php } ?>
+	</td>
+
+<?php }?>
+<?php if($count<4){
+	echo "<td colspan='".(4-$count)."'>&nbsp;</td>";
+}?>
+</tr>
+<?php }else{?>
+	<tr>
+	    <td colspan='4'><br /><b>No images</b><br /></td>
+	</tr>
+<?php }?>
+</table><br />
+<br />
+<div id="button"><input type="button" name="insert" class="button" value="Insert" onClick="returnValue();" /></div>
+</form>
+</div>
+</div>
+</div>
+<script type="text/javascript">
+    //<![CDATA[
+	<?php if($close==true){?>
+	returnValue();
+	<?php }?>
+    //]]>
+</script>
+</body>
+</html>

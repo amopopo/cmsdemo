@@ -1,0 +1,46 @@
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+<head><title>CMS</title>
+	<link rel="stylesheet" href="<?php echo CSS_PATH;?>login.css" type="text/css" media="screen" />
+</head>
+<body>
+<div id="wrapper">
+<div id="logo"></div>
+	<div id="loginbox_wrapper">
+	<?php echo common::ImagePath('logo.png');?><br /><br />
+	<?php if(!empty($frontlogin_error)){?>
+	<div id='frontlogin_error'> <?php echo $frontlogin_error;  ?></div>
+	<?php }?>
+	<div id="info"><?php echo $lock_reason;	?></div>
+	
+	<div id='frontlogin_error'>
+	Please login to continue. 
+	For system administration, click <a href="<?php echo HTTP_PATH;?>/login/" title="Login to system">here</a> to login.
+	</div>
+	
+	<div id="loginbox">
+	<fieldset><?php if(isset($error) && isset($error['error'])){common::error_msg($error,'error'); echo '<br />';} ?>
+	<form method="post">
+	  <dl><dt>Email Address : </dt>
+	  <dd><input <?php common::error_box($error,'username');  ?> type="text" name="username" value="<?php echo common::setPost('username');?>" size="25" />
+	  <?php common::error_msg($error,'username');  ?>
+	  </dd>
+	  </dl>
+	  <dl><dt>Password : </dt>
+	  <dd><input <?php common::error_box($error,'password');  ?> type="password" name="password" value="<?php echo common::setPost('password');?>" size="25" />
+	   <?php common::error_msg($error,'password');  ?></dd>
+	  </dl>
+	  <div id="otherinfo">
+		 <dl><dd><div id="button"><input type="submit" name="submit" value="Login" /></div></dd></dl>
+	  </div>
+	  
+	</form>
+	</fieldset>
+	<div class="clear"></div>
+	</div>
+	
+	</div>
+	
+</div>
+	
+</body>
+</html>

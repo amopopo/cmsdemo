@@ -1,0 +1,26 @@
+<?php include(VIEW_PATH.$this->group."/header_include.html");?>
+
+<div id="pagetitle"><div id="title"><?php echo $this->var['category']->title;?></div></div>
+<div id="accomodation" class="floatLeft">
+<?php if(!empty($this->var['listing'])){$count =0;$total_listing = count($this->var['listing']);?>
+<ul>
+<?php foreach($this->var['listing'] as $key=>$value){$count ++;?>
+<li <?php if(($count%3)==0 || $count ==$total_listing){echo "id='rightcol'";}?>>
+<div class="img">
+<?php if($value->thumbnail==''){?>
+<div style="width:218px;height:130px;border:1px solid #000;padding-top:20px;text-align:center;">
+    No image
+</div>
+<?php }else{ ?>
+	<a href="<?php echo HTTP_PATH.$value->alias;?>" title="<?php echo $value->title;?>">
+	<img src="<?php echo $value->thumbnail;?>" width="220" height="152" alt="<?php echo $value->title;?>" /></a>
+<?php }?>
+</div>
+<div class="title"><h3><?php echo $value->title;?></h3></div>
+<div class="shortdesc"><?php echo $value->short_desc;?> . . .<a href="<?php echo HTTP_PATH.$value->alias;?>" title="<?php echo $value->title;?>">more</a></div>
+</li>
+<?php }?>
+</ul> 
+<?php }?>
+</div>
+<?php include(VIEW_PATH.$this->group."/footer.html");?>

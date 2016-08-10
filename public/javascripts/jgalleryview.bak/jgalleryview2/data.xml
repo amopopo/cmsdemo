@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<items>
+	<item>
+		<title_1>Ads 1</title_1>
+		<title_2>Annonce 1</title_2>
+		<text_1>EN Horum dictorum rationem cogitanti mihi non satis illa faciebant, quae multa de humanae naturae praestantia afferuntur a multis: esse hominem creaturarum internuntium, superis familiarem, regem inferiorum...</text_1>
+		<text_2>FR quae multa de humanae naturae praestantia afferuntur a multis.</text_2>
+		<url>product.php?id_product=1</url>
+		<img>slides/slide0.jpg</img>
+	</item>
+
+	<item>
+		<title_1>Ads 2</title_1>
+		<title_2>Annonce 2</title_2>
+		<text_1> EN Horum dictorum rationem cogitanti mihi non satis illa faciebant, quae multa de humanae naturae praestantia afferuntur a multis: esse hominem creaturarum internuntium, superis familiarem, regem inferiorum...</text_1>
+		<text_2>FR Horum dictorum rationem cogitanti mihi non satis</text_2>
+		<url>product.php?id_product=2</url>
+		<img>slides/slide1.jpg</img>
+	</item>
+
+	<item>
+		<title_1>Ads 3</title_1>
+		<title_2>Annonce 3</title_2>
+		<text_1> EN Horum dictorum rationem cogitanti mihi non satis illa faciebant, quae multa de humanae naturae praestantia afferuntur a multis: esse hominem creaturarum internuntium, superis familiarem, regem inferiorum...</text_1>
+		<text_2> FR Horum dictorum rationem cogitanti mihi non satis illa faciebant, quae multa de humanae naturae praestantia afferuntur a multis: esse hominem creaturarum internuntium, superis familiarem, regem inferiorum .. </text_2>
+		<url>product.php?id_product=3</url>
+		<img>slides/slide2.jpg</img>
+	</item>
+
+	<item>
+		<title_1>Ads 4</title_1>
+		<title_2>Annonce 4</title_2>
+		<text_1>EN Aliquam molestie facilisis ligula ultrices tincidunt. Nulla ut ligula diam. Suspendisse potenti. Fusce tincidunt dapibus nulla ac auctor. Nulla varius, erat non ullamcorper mattis, turpis augue rutrum odio, a pulvinar libero ligula quis massa. Suspendisse potenti. Praesent</text_1>
+		<text_2>FR Aliquam molestie facilisis ligula ultrices tincidunt. Nulla ut ligula diam. Suspendisse potenti. Fusce tincidunt dapibus nulla ac auctor. Nulla varius, erat non ullamcorper mattis, turpis augue rutrum odio, a pulvinar libero ligula quis massa. Suspendisse potenti. Praesent</text_2>
+		<url>product.php?id_product=4</url>
+		<img>slides/slide3.jpg</img>
+	</item>
+
+	<item>
+		<title_1>Ads 5</title_1>
+		<title_2>Annonce 5</title_2>
+		<text_1>EN Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Suspendisse quis orci urna. Ut vulputate, turpis vel tempor</text_1>
+		<text_2>FR Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Suspendisse quis orci urna. Ut vulputate, turpis vel tempor</text_2>
+		<url>product.php?id_product=5</url>
+		<img>slides/slide4.jpg</img>
+	</item>
+
+	<item>
+		<title_1>Ads 6</title_1>
+		<title_2>Annonce 6</title_2>
+		<text_1>EN Proin vel lorem tempus sem imperdiet iaculis sed quis diam. Ut semper nisl at sapien luctus condimentum. Integer id nisl dui. Donec tempus mollis nisl in pulvinar.</text_1>
+		<text_2>FR Proin vel lorem tempus sem imperdiet iaculis sed quis diam. Ut semper nisl at sapien luctus condimentum. Integer id nisl dui. Donec tempus mollis nisl in pulvinar.</text_2>
+		<url>product.php?id_product=6</url>
+		<img>slides/slide5.jpg</img>
+	</item>
+
+	<item>
+		<title_1>Ads 7</title_1>
+		<title_2>Annonce 7</title_2>
+		<text_1>EN Suspendisse nulla mi, accumsan et lacinia aliquet, rhoncus eu odio. Praesent sed dolor vel tortor consequat ultricies quis ac risus. Nulla eget sodales sem.</text_1>
+		<text_2>FR Suspendisse nulla mi, accumsan et lacinia aliquet, rhoncus eu odio. Praesent sed dolor vel tortor consequat ultricies quis ac risus. Nulla eget sodales sem.</text_2>
+		<url>product.php?id_product=7</url>
+		<img>slides/slide6.jpg</img>
+	</item>
+
+	<item>
+		<title_1>Ads 8</title_1>
+		<title_2>Annonce 8</title_2>
+		<text_1>EN Sed erat quam, posuere vitae commodo euismod, gravida in tortor. Praesent tempus porta quam nec vehicula. In hac habitasse platea dictumst. Vestibulum eget ligula nisi, quis faucibus lorem.</text_1>
+		<text_2>FR Sed erat quam, posuere vitae commodo euismod, gravida in tortor. Praesent tempus porta quam nec vehicula. In hac habitasse platea dictumst. Vestibulum eget ligula nisi, quis faucibus lorem.</text_2>
+		<url>product.php?id_product=8</url>
+		<img>slides/slide7.jpg</img>
+	</item>
+
+</items>

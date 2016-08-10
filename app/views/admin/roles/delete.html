@@ -1,0 +1,80 @@
+<script type='text/javascript'>var inv_arr = new Array();</script>
+<div id='error_container'><?php if (!empty($use->var['errors'])){ 
+$errors = $use->var['errors'];
+if(isset($errors['error'])){?>
+<div id='error' onclick="expand('error');" >
+<div id='error_msg'>
+<ul><li><?php echo ( $errors['error']); ?></li></ul>
+</div>
+</div>
+<?php }} ?></div>
+
+<div id="fieldset_title">Permission Role</div>
+<fieldset>
+<div id=bracket>
+<dl><dt>Name</dt><dd><?php echo $use->var['role']->name; ?></dd></dl>
+</div>
+<div id=bracket>
+</div><br />
+</fieldset><br>
+
+<table id='tabledata'>
+<tr id="nohighlight">
+<td valign='top' width="350px" style="border:1px solid #A6C9E2;padding:0px;">
+	<div style="clear:both;height:300px;">
+	<table id='tabledata' cellspacing=0 cellpadding=0>
+	<tr><th>PERMISSIONS</th></tr>
+	<?php if(!empty($use->var['menugrp_arr'])){ 
+	foreach($use->var['menugrp_arr'] as $ko=>$vo){	 ?>
+				<script type='text/javascript'>inv_arr.push('divP<?php echo $vo; ?>');</script>
+			<tr><td width='180'><b><a href="javascript:void(0);" onClick="toggle_groupDiv(inv_arr,'divP<?php echo $vo; ?>');"><?php echo ucfirst($vo);?></a></b></td></tr>				
+<?php }}//end for?>
+	</table>
+	</div>
+</td>
+<td valign='top' style="border:1px solid #A6C9E2;border-left:2px solid #A6C9E2;padding:0px;">
+<?php $pre_org = '';$cur_org = ''; 
+if(!empty($use->var['permissions'])){ 
+foreach($use->var['permissions'] as $key=>$value){
+	if($value->set_default ==0){
+		$cur_org = $value->menu_grp; 
+	
+		if($pre_org != $cur_org && $pre_org==''){ ?>
+			<div id="divP<?php echo $value->menu_grp;?>">
+			<table id='tabledata' class="data" cellspacing=0 cellpadding=0>
+	<?php }
+				
+		if($pre_org != $cur_org && $pre_org!=''){ ?>
+			</table></div><div id="divP<?php echo $value->menu_grp;?>" style="display:none;">
+			<table id='tabledata' class="data" cellspacing=0 cellpadding=0>
+	<?php }
+		
+		if($pre_org != $cur_org ){ $per = array();
+			if(isset($_POST['PER_'.$value->menu_grp])){
+				$per = $_POST['PER_'.$value->menu_grp];
+			}else if(isset($use->var['PER_'.$value->menu_grp])){
+				$per = $use->var['PER_'.$value->menu_grp];
+			}
+		?>
+			<tr>
+			<th colspan=2 width="160px"><?php echo strtoupper($value->menu_grp);?></th>
+			<th>Description</th>
+			</tr>
+	<?php } ?>
+		<tr>
+		<td width="20px"><input type='checkbox' title="<?php echo $value->name;?>" <?php if(!empty($per)){if(in_array($value->id,$per)){echo 'checked';}}?> disabled="disabled"></td>
+		<td width="140px"><?php echo $value->name;?></td>
+		<td><?php echo $value->description;?></td>
+		</tr>
+<?php 	$pre_org = $value->menu_grp; 
+}}}?>
+</table>
+</td>
+</tr>
+</table><br />
+
+<div id="button_wrapper">
+<form method="post" <?php Common::formAction($use->group.'/'.$use->controller, 'index'); ?>>
+<div id="negative"><INPUT type=submit name="submit" value="Back"></div>
+</form>
+</div>

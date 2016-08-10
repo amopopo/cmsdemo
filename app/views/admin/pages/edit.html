@@ -1,0 +1,300 @@
+<script type="text/javascript" src="<?php echo JAVASCRIPT_PATH; ?>autocomplete/prototype.js"></script>
+<script type="text/javascript" src="<?php echo JAVASCRIPT_PATH; ?>autocomplete/scriptaculous.js"></script>
+<script type="text/javascript" src="<?php echo JAVASCRIPT_PATH; ?>tiny_mce/tinymce_config.js"></script>
+<script language="javascript" type="text/javascript" src="<?php echo JAVASCRIPT_PATH; ?>ajax_response_base.js"></script>
+<script type="text/javascript">
+var num = -1;
+function addRow(){
+	var IMAGE = "<?php echo IMAGE_PATH;?>";
+	var totalDiv = num + 1;
+	num = totalDiv;
+
+	var divIdName = "name_"+totalDiv+"Div";
+	var newTR = document.createElement('tr');
+	newTR.setAttribute("id",divIdName);
+
+	var newTD0 = document.createElement('td');
+	newTD0.setAttribute("valign",'top');
+	newTD0.setAttribute("id",'count_'+divIdName);
+	newTD0.innerHTML = total_row();
+
+	var newTD1 = document.createElement('td');	
+	newTD1.setAttribute("valign",'top');
+
+	newTD1.innerHTML += "<select name='itemtype_"+totalDiv+"' id='itemtype_"+totalDiv+"' onChange='onchange_update("+totalDiv+");'><option value='slideimage'>Slide show image</option><option value='image'>Image</option><option value='custom'>Custom value</option></select>";
+	
+	var newTD4 = document.createElement('td');	
+	newTD4.setAttribute("valign",'top');
+	
+	var value_name = document.createElement('input');
+	value_name.setAttribute('name',"value_name_"+totalDiv);
+	value_name.setAttribute('id',"value_name_"+totalDiv);	
+	value_name.setAttribute("type",'text');
+	value_name.setAttribute('size',"20");
+	newTD4.appendChild(value_name);
+
+	var newTD2 = document.createElement('td');	
+	newTD2.setAttribute("valign",'top');
+	var value1 = document.createElement('input');
+	value1.setAttribute('name',"value1_"+totalDiv);
+	value1.setAttribute('id',"value1_"+totalDiv);
+	value1.setAttribute("type",'text');
+	value1.setAttribute('size',"40");
+	newTD2.appendChild(value1);
+
+	var link = "<?php echo common::Path($use->group.'/'.$use->controller,'upload_image');?>";
+	newTD2.innerHTML +=  "<a href='javascript:void(0);' onclick=\"uploadimage("+totalDiv+");\" ><img src='"+IMAGE+"plus.gif' align='top'></a>";
+	newTD2.innerHTML +=  "<a href='javascript:void(0);' onclick=\"previewLink(1,'"+totalDiv+"')\" ><img src='"+IMAGE+"preview.gif' align='top'></a>";
+
+	var newTD3 = document.createElement('td');	
+	newTD3.setAttribute("valign",'top');
+	var value2td = document.createElement('div');
+	value2td.setAttribute('id',"value2td_"+totalDiv);
+	var value2 = document.createElement('input');
+	value2.setAttribute('name',"value2_"+totalDiv);
+	value2.setAttribute('id',"value2_"+totalDiv);
+	value2.setAttribute("type",'text');
+	value2.setAttribute("style",'float:left;');
+	value2.setAttribute('size',"40");
+	value2td.appendChild(value2);
+	value2td.innerHTML +=  "<a href='javascript:void(0);' onclick=\"previewLink(2,'"+totalDiv+"')\" style='float:left;' ><img src='"+IMAGE+"preview.gif' align='top'></a>";
+	newTD3.appendChild(value2td);
+
+	var newTD_delete = document.createElement('td');
+	newTD_delete.setAttribute("valign",'top');
+	newTD_delete.innerHTML = "<a href='javascript:void(0);' onClick='removeRow(\""+divIdName+"\");'><img src='<?php echo IMAGE_PATH;?>trash.gif'></a>";
+
+	newTR.appendChild(newTD0);
+	newTR.appendChild(newTD1);
+	newTR.appendChild(newTD4);
+	newTR.appendChild(newTD2);
+	newTR.appendChild(newTD3);
+	newTR.appendChild(newTD_delete);
+
+	my_div = $('addField');
+	parentDiv = my_div.parentNode;
+	parentDiv.insertBefore(newTR, my_div);
+	onchange_update(totalDiv);
+}
+
+function previewLink(value,id){
+	if(document.getElementById("value"+value+"_"+id)){
+		if(document.getElementById("value"+value+"_"+id).value==''){
+			alert("Please enter link of image or insert from pop up window.");
+		}else{
+			PopupCenter(document.getElementById("value"+value+"_"+id).value,500,400);
+		}
+	}
+}
+
+function uploadimage(id){
+	var link = "<?php echo common::Path($use->group.'/'.$use->controller,'upload_image');?>";
+	var item_type = 'slideimage';
+	if($('itemtype_'+id) ){item_type = $('itemtype_'+id).value;}
+	//if(item_type!='slideimage'&&item_type!='image'){item_type='slideimage';}
+	PopupCenter(link+"/"+id+"/"+item_type,750,540);
+}
+
+function onchange_update(id){
+	var item_type='slideimage';
+	if($('itemtype_'+id)){item_type = $('itemtype_'+id).value;}
+	if(item_type == 'slideimage' || item_type=='image'){
+		close_div('value_name_'+id);
+		if(item_type == 'slideimage' ){open_div('value2td_'+id);}else{close_div('value2td_'+id);}
+	}else{
+		open_div('value_name_'+id);
+		open_div('value2td_'+id);
+		//close_div('value2td_'+id);
+	}
+}
+var cal_start = new CalendarPopup('cal_div');cal_start.showYearNavigation();cal_start.showYearNavigationInput();
+</script>
+<?php $date_format = $_SESSION['auth']->date_format;
+	$date_format =  js_formatDate($date_format); 
+?>
+
+<div id="error_container">
+<?php if (!empty($use->var['errors'])) { $errors = $use->var['errors'];
+	if (isset($errors['error'])) { ?>
+	<div id="error" onclick="expand('error');" >
+		<div id="error_msg"><ul><li><?php echo $errors['error']; ?></li></ul></div>
+	</div>
+<?php }} ?></div>
+
+<form method="post" name="myform" enctype="multipart/form-data">
+<div id="fieldset_title">Edit Page</div>
+<fieldset>
+<div id="bracket">
+	<dl><dt>* Title</dt>
+	<dd><input <?php common::error_box($use->var['errors'], 'title'); ?> type="text" name="title" value="<?php echo common::setField('title',$use->var['blog_content']->title);?>" title="title" size="30" />
+		<?php common::error_msg( $use->var['errors'], 'title'); ?>
+	</dd></dl>
+	<dl><dt>* Alias</dt>
+	<dd><input <?php common::error_box($use->var['errors'], 'alias'); ?> type="text" name="alias" value="<?php echo common::setField('alias',$use->var['blog_content']->alias);?>" title="Alias" />
+		<?php common::error_msg( $use->var['errors'], 'alias'); ?>
+	</dd></dl>
+	<dl><dt>Short Description</dt>
+	<dd><textarea cols="40" rows="5" name="short_desc" <?php common::error_box($use->var['errors'], 'short_desc'); ?>><?php echo common::setField('short_desc',$this->var['blog_content']->short_desc);?></textarea>
+	<?php common::error_msg( $use->var['errors'], 'short_desc'); ?>
+	</dd></dl>
+</div>
+<div id="bracket">
+    <dl><dt>* Category</dt>
+	<dd><select name="category" <?php common::error_box( $use->var['errors'], 'category'); ?>>
+		<option value="">None</option>
+	<?php if(!empty($use->var['category'])){
+		foreach($use->var['category'] as $key=>$value){ ?>
+		<option value="<?php echo $value->id;?>" <?php if(common::setField('category',$use->var['blog_content']->blog_category_id)==$value->id){echo "selected='selected'";}?>><?php echo $value->title;?></option>
+	<?php }}?>
+	</select>
+	<?php common::error_msg( $use->var['errors'], 'category'); ?>
+	</dd></dl>
+	<dl><dt>* Template</dt>
+	<dd><select <?php common::error_box( $use->var['errors'], 'template'); ?> name="template">
+		<option value="">Default Template</option>
+	<?php if(!empty($use->var['templates'])){
+		foreach($use->var['templates'] as $key=>$value){ ?>
+		<option value="<?php echo $value['name'];?>" <?php if(common::setField('template',$use->var['blog_content']->template)==$value['name']){echo "selected='selected'";}?>><?php echo $value['name'];?></option>
+	<?php }}?>
+	</select>
+	<?php common::error_msg( $use->var['errors'], 'template'); ?>
+	</dd></dl>
+	
+	<dl><dt>Publish Date</dt>
+	<dd><input <?php common::error_box($use->var['errors'],'publish_date'); ?> type="text" name="publish_date" size="10" value="<?php echo common::setField('publish_date',formatDate($use->var['blog_content']->date_published)); ?>" title='Date of Birth'>
+	<a href="#" onClick="cal_start.select(document.myform.publish_date,'anchor1','<?php echo $date_format; ?>'); return false;" NAME="anchor1" ID="anchor1" title="Pick A Date">
+	<img src='<?php echo IMAGE_PATH; ?>calendar.gif'></a> 
+	<?php common::error_msg($use->var['errors'],'publish_date'); ?></dd>
+	</dl><br>
+	
+	<dl><dt>Position</dt>
+	<dd><input <?php common::error_box($use->var['errors'], 'position'); ?> type="text" name="position" value="<?php echo common::setField('position',$use->var['blog_content']->position);?>" title="position" size="5" />
+		<?php common::error_msg( $use->var['errors'], 'position'); ?>
+	</dd></dl>
+</div><br />
+</fieldset>	<br />
+
+<fieldset><legend>* Content</legend>
+<div id="bracketLong">
+   <textarea id='editor' name="content"><?php echo common::setField('content',$use->var['blog_content']->content);?></textarea>
+	<?php common::error_msg( $use->var['errors'], 'content'); ?>
+</div> <br />
+</fieldset><br />
+
+<fieldset><legend>Thumbnail</legend>
+
+<div id="bracketLong">
+<dl>
+<dd><div id="button"><input type="button" value='Click here to upload thumbnail' onClick="PopupCenter('<?php echo common::Path($use->group.'/'.$use->controller,'upload_thumb',array($this->var['blog_content']->id));?>',500,200);"></div>
+<span id="removbuttn" <?php if(!isset($this->var['thumbnail'])||empty($this->var['thumbnail'])){echo "style='display:none;float:left;'";}else{echo "style='display:block;float:left;'";} ?>>
+<div id="negative"><input type="submit" name="submit" value='Remove Thumbnail'></div>
+</span>
+</dd></dl>
+<dl>
+<dd><span id="thumbimg">
+<?php if(isset($this->var['thumbnail']) && !empty($this->var['thumbnail']) && $this->var['thumbnail']->path!=''){ ?>
+<img src='<?php echo $this->var['thumbnail']->path;?>' style='border:1px solid black;' align="top">
+File name : <?php echo $this->var['thumbnail']->name;?>
+<?php }else{?>
+No thumbnail uploaded
+<?php }?>
+</span>
+</dd>
+</dl><br>
+</div><br><br><br>
+</fieldset><br />
+
+<fieldset><legend>Other Info</legend>
+<table class='data' id='show_area' cellspacing=0 cellpadding=0>
+<tr>
+<th width="20px">#</th>
+<th>Type</th>
+<th width="140">Name</th>
+<th width='330px'>Value</th>
+<th width='330px'>&nbsp;</th>
+<th width="20px">&nbsp;</th>
+</tr>
+<?php if(common::setPost('save')=='Save as draft' || common::setPost('save')=='Publish'|| common::setPost('submit')=='Upload'){
+	 $total_debit = 0; $total_credit = 0; 
+if(!empty($use->var['post_arr'])){$total = 0;$count =0; 
+	foreach($use->var['post_arr'] as $k=>$v){$total ++;
+		$total_debit += common::setPost('debit_'.$v);
+		$total_credit += common::setPost('credit_'.$v);
+	?>
+	<SCRIPT LANGUAGE="JavaScript">num++;</script>
+	<tr id="name_<?php echo $count;?>Div">
+	<td valign='top' id="count_name_<?php echo $count;?>Div"><?php echo $total;?></td>
+	<td valign='top'><select <?php common::error_box($use->var['errors'],'itemtype_'.$count);?> type='text' name='itemtype_<?php echo $count;?>' id='itemtype_<?php echo $count;?>' onChange="onchange_update('<?php echo $count;?>');">
+	<option value="slideimage" <?php if(common::setPost('itemtype_'.$v)=='slideimage'){echo "selected='selected'";}?>>Slide show image</option>
+	<option value="image" <?php if(common::setPost('itemtype_'.$v)=='image'){echo "selected='selected'";}?>>Image</option>
+	<option value="custom" <?php if(common::setPost('itemtype_'.$v)=='custom'){echo "selected='selected'";}?>>Custom value</option>
+	</select>
+	<?php common::error_msg($use->var['errors'],'itemtype_'.$count);?>
+	</td>
+	<td valign='top' >
+	<input <?php common::error_box($use->var['errors'],'value_name_'.$count);?> id="value_name_<?php echo $count;?>" name="value_name_<?php echo $count;?>" value="<?php echo common::setPost('value_name_'.$v);?>" size="20" <?php if(common::setPost('itemtype_'.$v)!='custom'){echo "style='display:none;'";}?>>
+	</td>
+	<td valign='top'>
+	<input <?php common::error_box($use->var['errors'],'value1_'.$count);?> id="value1_<?php echo $count;?>" name="value1_<?php echo $count;?>" value="<?php echo common::setPost('value1_'.$v);?>" size="40">
+	<a href='javascript:void(0);' onclick="uploadimage('<?php echo $count;?>');',750,540);" ><?php echo common::imagePath('plus.gif');?></a>
+	<a href='javascript:void(0);' onclick="previewLink(1,'<?php echo $count;?>');" ><?php echo common::imagePath('preview.gif');?></a>
+	</td>
+	<td><div id="value2td_<?php echo $count;?>" <?php if(common::setPost('itemtype_'.$v)!='slideimage'){echo "style='display:none;'";}?>>
+	<input type='text' size='40' <?php common::error_box($use->var['errors'],'value2_'.$count);?> name="value2_<?php echo $count;?>" id="value2_<?php echo $count;?>" value="<?php echo common::setPost('value2_'.$v); ?>" >
+	<a href='javascript:void(0);' onclick="previewLink(2,'<?php echo $count;?>');" ><?php echo common::imagePath('preview.gif');?></a>
+	<?php common::error_msg($use->var['errors'],'value2_'.$count);?></div></td>
+	<td><a href="javascript:void(0);" onclick='removeRow("name_<?php echo $count;?>Div");'>
+	<?php echo common::imagePath('trash.gif','delete');?></a>
+	</td>
+	</tr>
+<?php $count++;}}
+}else{
+	if(!empty($use->var['items'])){$total = 0;$count =0; 
+	foreach($use->var['items'] as $k=>$v){$total ++; ?>
+	<SCRIPT LANGUAGE="JavaScript">num++;</script>
+	<tr id="name_<?php echo $count;?>Div">
+	<td valign='top' id="count_name_<?php echo $count;?>Div"><?php echo $total;?></td>
+	<td valign='top'><select type='text' name='itemtype_<?php echo $count;?>' id='itemtype_<?php echo $count;?>' onChange="onchange_update('<?php echo $count;?>');">
+	<option value="slideimage" <?php if($v->item_type=='slideimage'){echo "selected='selected'";}?>>Slide show image</option>
+	<option value="image" <?php if($v->item_type=='image'){echo "selected='selected'";}?>>Image</option>
+	<option value="custom" <?php if($v->item_type=='custom'){echo "selected='selected'";}?>>Custom value</option>
+	</select>
+	</td>
+	<td valign='top' >
+	<input id="value_name_<?php echo $count;?>" name="value_name_<?php echo $count;?>" value="<?php echo $v->value_name;?>" size="20" <?php if($v->item_type!='custom'){echo "style='display:none;'";}?>>
+	</td>
+	<td valign='top'>
+	<input id="value1_<?php echo $count;?>" name="value1_<?php echo $count;?>" value="<?php echo htmlspecialchars($v->value);?>" size="40">
+	<a href='javascript:void(0);' onclick="uploadimage('<?php echo $count;?>');" ><?php echo common::imagePath('plus.gif');?></a>
+	<a href='javascript:void(0);' onclick="previewLink(1,'<?php echo $count;?>');" ><?php echo common::imagePath('preview.gif');?></a>
+	</td>
+	<td><div id="value2td_<?php echo $count;?>" <?php if($v->item_type!='slideimage'){echo "style='display:none;'";}?>>
+	<input type='text' size='40' name="value2_<?php echo $count;?>" id="value2_<?php echo $count;?>" value="<?php echo $v->value2; ?>" >
+	<a href='javascript:void(0);' onclick="previewLink(2,'<?php echo $count;?>');" ><?php echo common::imagePath('preview.gif');?></a>
+	</div></td>
+	<td><a href="javascript:void(0);" onclick='removeRow("name_<?php echo $count;?>Div");'><?php echo common::imagePath('trash.gif','delete');?></a>
+	</td>
+	</tr>
+<?php $count++;}} 
+}?>
+<tr id='addField'>
+<td>&nbsp;</td>
+<td colspan='5'><div id="button"  style="float:left;"><input type='button' title='New Line' value='New Line' onclick='addRow();'></div></td>
+</tr>
+</table>
+</fieldset><br />
+
+<div id="button_wrapper">
+	<div id="button"><input type='submit' name="save" value="Save as draft"></div>
+	<div id="button"><input type='submit' name="save" value="Publish"></div>
+</form>
+<form method="post" <?php common::formAction($use->group.'/'.$use->controller, 'index'); ?>>
+	<div id="negative"><input type="submit" name="submit" value="Cancel" onclick="return confirm('Changes will not be saved. Do you wish to continue?');"/></div>
+</form>
+</div>
+<script type="text/javascript">
+    //<![CDATA[
+    start(1-num-1);
+    //]]>
+</script>
+<div id="cal_div"></div>

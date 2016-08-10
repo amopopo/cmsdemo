@@ -1,0 +1,72 @@
+<div id='error_container'><?php if (!empty($use->var['errors'])){ 
+$errors = $use->var['errors'];
+if(isset($errors['error'])){?>
+<div id='error' onclick="expand('error');" >
+<div id='error_msg'>
+<ul><li><?php echo ( $errors['error']); ?></li></ul>
+</div>
+</div>
+<?php }} ?></div>
+
+<form method="post" name="myform">
+<fieldset><legend>Update Company</legend>
+<div id="bracket">
+<dl><dt>* Name</dt>
+<dd><input <?php common::error_box( $use->var['errors'],'name');?> type="text" name="name" value="<?php echo common::setField('name',$use->var['company']->name);?>" size="30" />
+<?php common::error_msg( $use->var['errors'],'name');?></dd></dl>
+
+<dl><dt>*(Main) Phone 1</dt>
+<dd><input <?php common::error_box( $use->var['errors'],'phone_1');?> type="text" name="phone_1" value="<?php echo common::setField('phone_1',$use->var['company']->phone_1);?>" />
+<?php common::error_msg( $use->var['errors'],'phone_1');?></dd></dl>
+
+<dl><dt>Phone 2</dt>
+<dd><input <?php common::error_box( $use->var['errors'],'phone_2');?> type="text" name="phone_2" value="<?php echo common::setField('phone_2',$use->var['company']->phone_2);?>" />
+<?php common::error_msg( $use->var['errors'],'phone_2');?></dd></dl>
+
+<dl><dt>Fax</dt>
+<dd><input <?php common::error_box( $use->var['errors'],'fax');?> type="text" name="fax" value="<?php echo common::setField('fax',$use->var['company']->fax);?>" />
+<?php common::error_msg( $use->var['errors'],'fax');?></dd></dl>
+
+<dl><dt>Email</dt>
+<dd><input <?php common::error_box( $use->var['errors'],'email');?> type="text" name="email" value="<?php echo common::setField('email',$use->var['company']->email);?>" size="40" />
+<?php common::error_msg( $use->var['errors'],'email');?></dd></dl>
+</div>
+
+<div id="bracket">
+<dl><dt>* Address 1</dt>
+<dd><input <?php common::error_box( $use->var['errors'],'address1');?> type="text" name="address1" value="<?php echo common::setField('address1',$use->var['company']->address1);?>" size='40' title="Address 1" />
+<?php common::error_msg( $use->var['errors'],'address1');?></dd></dl>
+<dl><dt>Address 2</dt>
+<dd><input <?php common::error_box( $use->var['errors'],'address2');?> type="text" name="address2" value="<?php echo common::setField('address2',$use->var['company']->address2);?>" size='40' title="Address 2" />
+<?php common::error_msg( $use->var['errors'],'address2');?></dd></dl>
+<dl><dt>City</dt>
+<dd><input <?php common::error_box( $use->var['errors'],'city');?> type="text" name="city" value="<?php echo common::setField("city",$use->var['company']->city);?>" />
+<?php common::error_msg( $use->var['errors'],'city');?></dd></dl>
+<dl><dt>State</dt>
+<dd><input <?php common::error_box( $use->var['errors'],'state');?> type="text" name="state" value="<?php echo common::setField("state",$use->var['company']->state);?>" />
+<?php common::error_msg( $use->var['errors'],'state');?></dd></dl>
+<dl><dt>Postal Code</dt>
+<dd><input <?php common::error_box( $use->var['errors'],'postcode');?> type="text" size="10" name="postcode" value="<?php echo common::setField("postcode",$use->var['company']->postcode);?>" />
+<?php common::error_msg( $use->var['errors'],'postcode');?></dd></dl>
+<dl><dt>* Country</dt><dd>
+<select <?php common::error_box( $use->var['errors'],'country');?> name="country" title="Country">
+	<option value=""> </option>
+	<?php if(!empty($use->var['country'])){
+	foreach($use->var['country'] as $key=>$value){ ?>
+		<option value="<?php echo $value->iso;?>" <?php if(common::setField('country',$use->var['company']->sys_country_id)==$value->iso){echo "selected='selected'";}?>><?php echo $value->printable_name;?></option>
+<?php }}?>
+</select>
+<?php common::error_msg( $use->var['errors'],'country');?></dd></dl>
+</div><br />
+</fieldset><br>
+
+<div id="button_wrapper">
+<div id="button"><INPUT type='submit' name="save" value="Save"></div>
+</form>
+<form method="post" <?php Common::formAction($use->group.'/'.$use->controller, 'index'); ?>>
+<div id="negative"><INPUT type=submit name="submit" value="Cancel" onclick="javascript:return confirm('Changes will not be saved. Do you wish to continue?');" ></div>
+</form>
+</div>
+
+
+

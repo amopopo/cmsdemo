@@ -1,0 +1,100 @@
+/*
+
+	GalleryView Stylesheet
+	
+	Use the CSS rules below to modify the look of your gallery.
+	
+	To create additional rules, use the markup below as a guide to GalleryView's architecture.
+	
+	<div class="gallery">
+		<div class="panel">
+			<img src="path/to/image.jpg" />
+			<div class="panel-overlay">
+				...overlay content...
+			</div>
+			<div class="overlay-background"></div>
+		</div>
+		<ul class="filmstrip">
+			<li class="frame current">
+				<img src="path/to/thumbnail.jpg" />
+				<div class="caption">caption text</div>
+			</li>
+			<li class="frame">
+				<img src="path/to/thumbnail.jpg" />
+				<div class="caption">caption text</div>
+			</li>
+		</ul>
+	</div>
+		
+
+*/
+
+/* GALLERY LIST */
+/* IMPORTANT - Change '#photos' to the ID of your gallery list to prevent a flash of unstyled content */
+#work { visibility: hidden; }
+
+/* GALLERY CONTAINER */
+.gallery { margin-top:-4px; position:relative;}
+
+/* LOADING BOX */
+.loader { background: url(loader.gif) center center no-repeat #ddd; }
+
+/* GALLERY PANELS */
+.panel { background-color:#f5f5f5; border:solid 2px #ececec; margin-bottom:2px;}
+
+/* DEFINE HEIGHT OF PANEL OVERLAY */
+/* NOTE - It is best to define padding here as well so overlay and background retain identical dimensions */
+.panel .panel-overlay,
+.panel .overlay-background { height: 60px; padding: 0 0em; }
+
+/* PANEL OVERLAY BACKGROUND */
+.panel .overlay-background { background: #222; }
+
+/* PANEL OVERLAY CONTENT */
+.panel .panel-overlay { color: white; font-size: 0.7em; }
+.panel .panel-overlay a { color: white; text-decoration: underline; font-weight: bold; }
+
+/* FILMSTRIP */
+/* 'margin' will define top/bottom margin in completed gallery */
+.filmstrip { display:table; margin:4px; margin-top:12px; z-index:100; }
+
+/* FILMSTRIP FRAMES (contains both images and captions) */
+.frame { margin-top:12px; }
+
+/* WRAPPER FOR FILMSTRIP IMAGES */
+.frame .img_wrap { }
+
+/* WRAPPER FOR CURRENT FILMSTRIP IMAGE */
+.frame.current .img_wrap { border-top: #f60 solid 2px; border-bottom: #f60 solid 3px; }
+
+/* FRAME IMAGES */
+.frame img { }
+
+/* FRAME CAPTION */
+.frame .caption { font-size: 11px; text-align: center; color: #888; background-color:#ddd;}
+
+/* CURRENT FRAME CAPTION */
+.frame.current .caption { color: #000; }
+
+/* POINTER FOR CURRENT FRAME */
+.pointer {
+	border-color: #f60;
+}
+
+/* NEXT & PREVIOUS BUTTON*/
+img.nav-next {
+	float:right;
+	margin-top:422px;
+	margin-right:8px;
+}
+img.nav-prev {
+	float:left;
+	margin-left:8px;
+	margin-top:422px;
+}
+
+/* TRANSPARENT BORDER FIX FOR IE6 */
+/* NOTE - DO NOT CHANGE THIS RULE */
+*html .pointer {
+	filter: chroma(color=pink);
+}

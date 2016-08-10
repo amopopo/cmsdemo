@@ -1,0 +1,72 @@
+<div id='error_container'><?php if (!empty($use->var['errors'])){ 
+$errors = $use->var['errors'];
+if(isset($errors['error'])){?>
+<div id='error' onclick="expand('error');" >
+<div id='error_msg'>
+<ul><li><?php echo ( $errors['error']); ?></li></ul>
+</div>
+</div>
+<?php }} ?></div>
+
+<div id="fieldset_title">System &amp; Website Settings</div>
+<form method="post" name="myform">
+<fieldset>
+<div id="bracket">
+<dl><dt>Default Country</dt><dd>
+<select <?php common::error_box( $use->var['errors'],'country');?> name="country" title="Country">
+<option value="">Choose a country</option>
+<?php if(!empty($use->var['country'])){
+foreach($use->var['country'] as $key=>$value){ ?>
+<option value="<?php echo $value->iso;?>" <?php if(common::setField('country',$use->var['settings']->default_country)==$value->iso){echo 'selected="selected"';}?>><?php echo $value->printable_name;?></option>
+<?php }}?>
+</select>
+<?php common::error_msg( $use->var['errors'],'country');?>
+</dd></dl>
+</div>
+<div id="bracket"></div><br />
+</fieldset><br>
+
+<fieldset>
+<div id="bracket">
+<dl><dt>Lock</dt>
+<dd><input type="checkbox" name="lock_website" <?php if($use->var['settings']->lock_website==1){echo "checked='checked'";}?> />
+<?php common::error_msg( $use->var['errors'],'name');?></dd></dl>
+
+<dl><dt>Reason</dt>
+<dd><input <?php common::error_box( $use->var['errors'],'lock_reason');?> type="text" name="lock_reason" value="<?php echo common::setField('lock_reason',$use->var['settings']->lock_reason);?>" size="40" title="Lock Reason" />
+<?php common::error_msg( $use->var['errors'],'lock_reason');?></dd></dl>
+</div>
+
+<div id="bracket">
+<dl><dt>* Default Contact Email</dt>
+<dd><input <?php common::error_box( $use->var['errors'],'contact_email');?> type="text" name="contact_email" value="<?php echo common::setField('contact_email',$use->var['settings']->contact_email);?>" size='40' title="Contact Email" />
+<?php common::error_msg( $use->var['errors'],'contact_email');?></dd></dl>
+<dl><dt>* Default Reply Email</dt>
+<dd><input <?php common::error_box( $use->var['errors'],'reply_email');?> type="text" name="reply_email" value="<?php echo common::setField('reply_email',$use->var['settings']->reply_email);?>" size='40' title="Reply Email" />
+<?php common::error_msg( $use->var['errors'],'reply_email');?></dd></dl>
+</div><br />
+</fieldset><br>
+
+<fieldset>
+<div id="bracket">
+<dl><dt>Google Analytic Code</dt>
+	<dd><textarea name="trackingcode" rows="10" cols="40"><?php echo common::setField('trackingcode',$use->var['settings']->trackingcode);?></textarea></dd>
+</dl>
+</div>
+<div id="bracket">
+<dl><dt>Meta Keywords</dt><dd><textarea name="metakey" rows="5" cols="40"><?php echo common::setField('metakey',$use->var['settings']->metakey);?></textarea></dd></dl>	
+<dl><dt>Meta Description</dt><dd>
+<textarea name="metadesc" rows="5" cols="40"><?php echo common::setField('metadesc',$use->var['settings']->metadesc);?></textarea></dd></dl>	
+</div>
+</fieldset><br />
+
+<div id="button_wrapper">
+<div id="button"><INPUT type='submit' name="save" value="Save"></div>
+</form>
+<form method="post" <?php Common::formAction($use->group.'/'.$use->controller, 'index'); ?>>
+<div id="negative"><INPUT type=submit name="submit" value="Cancel" onclick="javascript:return confirm('Changes will not be saved. Do you wish to continue?');" ></div>
+</form>
+</div>
+
+
+

@@ -1,0 +1,30 @@
+<div id="fieldset_title">My Account</div>
+<fieldset>
+	<legend>System Account</legend>
+	<div id="bracket">
+		<dl><dt>Username</dt><dd><?php echo $use->var['user']->username;?></dd></dl>
+		<dl><dt>Role</dt><dd><?php echo $use->var['user']->role; ?></dd></dl>
+	</div>
+	<div id="bracket">	</div>
+</fieldset>
+<br />
+<fieldset>
+	<legend>Personal Details</legend>
+	<div id="bracket">
+		<dl><dt>Email</dt><dd><?php echo $use->var['user']->email; ?></dd></dl>
+		<dl><dt>First Name</dt><dd><?php echo $use->var['user']->first_name; ?></dd></dl>
+		<dl><dt>Last Name</dt><dd><?php echo $use->var['user']->last_name; ?></dd></dl>
+		
+	</div>
+	<div id="bracket">
+		<dl><dt>Date of Birth</dt><dd><?php echo formatDate($use->var['user']->dob); ?></dd></dl><br />
+	</div>
+</fieldset>
+<br />
+<div id="button_wrapper">
+	<div id="button">
+		<form method="post" <?php Common::formAction($use->group.'/'.$use->controller, 'edit', array($use->var['user']->id)); ?>>
+			<input type="submit" name="submit" value="Edit" />
+		</form>
+	</div>
+</div>

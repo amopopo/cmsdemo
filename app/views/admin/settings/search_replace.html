@@ -1,0 +1,50 @@
+<?php if (!empty($use->var['errors'])){ ?>
+<div id='error_container'><?php 
+$errors = $use->var['errors'];
+if(isset($errors['error'])){?>
+<div id='error' onclick="expand('error');" >
+<div id='error_msg'>
+<ul><li><?php echo ( $errors['error']); ?></li></ul>
+</div>
+</div>
+<?php } ?></div><?php } ?>
+
+<?php if (!empty($use->var['success'])){ ?>
+<div id='info_container'><div id='error'>
+<div id='error_msg'>
+<ul><li><?php echo $use->var['success']; ?></li></ul>
+</div>
+</div></div>
+<?php } ?>
+
+<div id="fieldset_title">Search &amp; Replace Database Value</div>
+<form method="post" name="myform">
+<fieldset>
+<div id="bracket">
+<dl><dt>* Search</dt>
+<dd><input <?php common::error_box( $use->var['errors'],'search_value');?> type="text" name="search_value" value="<?php echo common::setPost('search_value');?>" size="40" />
+<?php common::error_msg( $use->var['errors'],'search_value');?></dd></dl>
+
+<dl><dt>* Replace with</dt>
+<dd><input <?php common::error_box( $use->var['errors'],'replace_value');?> type="text" name="replace_value" value="<?php echo common::setPost('replace_value');?>" size="40" />
+<?php common::error_msg( $use->var['errors'],'replace_value');?></dd></dl>
+
+<dl>
+    <dt>&nbsp;</dt>
+	<dd>Note : Date replaced cannot be restore.</dd>
+</dl>
+</div>
+
+<div id="bracket"></div><br />
+</fieldset><br>
+
+<div id="button_wrapper">
+<div id="button"><INPUT type='submit' name="change" value="Replace"></div>
+</form>
+<form method="post" <?php Common::formAction($use->group.'/'.$use->controller, 'index'); ?>>
+<div id="negative"><INPUT type=submit name="submit" value="Cancel" onclick="javascript:return confirm('Changes will not be saved. Do you wish to continue?');" ></div>
+</form>
+</div>
+
+
+

@@ -1,0 +1,52 @@
+*{padding:0px; margin:0px;}
+body{height:100%;padding:0px; margin:0px;text-align:center;font-family:helvetica;font-size:12px;color:#666666;}
+.clear{clear:both;}
+img{border:0px;}
+a{color:#666666;}
+
+#wrapper{width:883px;margin:0 auto;}
+#wrapper #logo{height:100px;width:880px;text-align:left;padding-top:20px;}
+#grey_wrapper{width: 350px;position: absolute;left: 40%;top: 40%;margin-left: -50px; margin-top: -50px; text-align:left;}
+#grey_wrapper #content{padding:20px 20px;background:#ececec;  border: 1px solid #cccccc;color: #666666;}
+#grey_wrapper #content p{padding:5px 0px 0px 0px;}
+
+#loginbox_wrapper{width: 350px; height: 200px;position: absolute;left: 40%;top: 40%;margin-left: -50px; margin-top: -60px; text-align:center;}
+#loginbox {background:#ececec;  border: 1px solid #cccccc;color: #666666;padding-bottom:5px;text-align:left;}
+#loginbox fieldset{float:left;margin:20px 0px 0px 35px;border:0px;}
+#loginbox dl{float:left;width:100%;margin-bottom:10px;}
+#loginbox dt{float:left;font-weight:bold;width:110px;color:#666666;}
+#loginbox dd{float:left;padding-left:10px;text-align:left;width:180px;}
+#loginbox dd input{font-size:11px;}
+#loginbox fieldset #otherinfo{font-family:arial;font-size:11px;margin-left:110px;color:#666;}
+#loginbox fieldset #otherinfo a{text-decoration:none;}
+#loginbox fieldset #otherinfo a:hover{text-decoration:underline;}
+#loginbox fieldset #otherinfo span a{color:#333;text-decoration:underline;}
+#loginbox fieldset #otherinfo #button{float:left;text-align:right;margin:5px 10px 0px 0px;}
+#loginbox fieldset #otherinfo #button input{font-family:tahoma;font-size:11px;font-weight:bold;border:0px;padding:3px 6px;color:#ffffff;background:#62AAC8;
+	   border:1px solid #27779b;}
+
+#loginbox fieldset #otherinfo #negative{float:left;margin:5px 10px 0px 0px;}
+#loginbox fieldset #otherinfo #negative input{font-size:10px;font-weight:bold;border:0px solid #464646;padding:3px 10px;color:#ffffff;background:#8b8a8a;}
+#loginbox fieldset #otherinfo #negative input:hover{cursor:pointer;}
+
+#forgotbox {background:#ececec;  border: 1px solid #cccccc;color: #666666;padding-bottom:5px;}
+#forgotbox fieldset{float:left;margin:20px 0px 0px 0px;border:0px;}
+#forgotbox dl{float:left;width:100%;margin-bottom:10px;}
+#forgotbox dt{float:left;font-weight:bold;width:120px;color:#666666;padding-left:30px;}
+#forgotbox dd{float:left;padding-left:10px;text-align:left;width:auto;width:180px;}
+#forgotbox dd input{font-size:11px;}
+#forgotbox fieldset #otherinfo{float:left;font-family:arial;font-size:11px;color:#666;}
+#forgotbox fieldset #otherinfo a{text-decoration:none;}
+#forgotbox fieldset #otherinfo a:hover{text-decoration:underline;}
+#forgotbox fieldset #otherinfo span a{color:#333;text-decoration:underline;}
+#forgotbox fieldset #otherinfo #button{float:left;text-align:right;margin:0px 10px 0px 0px;}
+#forgotbox fieldset #otherinfo #button input{font-size:10px;font-weight:bold;border:0px solid #464646;padding:3px 10px;color:#ffffff;background:#ff6600;}
+
+
+/*ERROR*/
+input.errorbox{border:1px solid #ff0000;}
+.errormsg{color:#ff0000;font-size:11px;font-weight:bold;}
+
+#info{background: url('images/maintenance.gif') top left no-repeat;font-size:12px;color:#ff0000;padding:5px 5px 10px 50px;text-align:center;font-weight:bold;}
+#frontlogin_error{border:1px solid #ddd;font-weight:bold;padding:2px 15px;margin:10px 0px;background:#fcfcfc;}
+#frontlogin_error a{color:#ff6600;}

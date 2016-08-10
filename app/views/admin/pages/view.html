@@ -1,0 +1,97 @@
+<script type="text/javascript">
+
+function previewLink(value,id){
+	if(document.getElementById("value"+value+"_"+id)){
+		if(document.getElementById("value"+value+"_"+id).value==''){
+			alert("Please enter link of image or insert from pop up window.");
+		}else{
+			PopupCenter(document.getElementById("value"+value+"_"+id).value,500,400);
+		}
+	}
+}
+</script>
+
+<div id="fieldset_title"><?php echo $use->var['blog_content']->title;?></div>
+<fieldset>
+<div id="bracket">
+	<dl><dt>Title</dt><dd><?php echo $use->var['blog_content']->title;?></dd></dl>
+	<dl><dt>Alias</dt><dd><?php echo $use->var['blog_content']->alias;?></dd></dl>
+	<dl><dt>Short Description</dt>
+	<dd><textarea cols="40" rows="5" readonly="readonly"><?php echo common::setField('short_desc',$this->var['blog_content']->short_desc);?></textarea>
+	</dd></dl>
+</div>
+<div id="bracket">
+    <dl><dt>Category</dt>
+	<dd><?php echo $use->var['blog_content']->category;?>
+	</dd></dl>
+	<dl><dt>Template</dt><dd><?php echo $use->var['blog_content']->template;?>
+	</dd></dl>
+	
+	<dl><dt>Publish Date</dt>
+	<dd><?php echo formatDate($use->var['blog_content']->date_published); ?></dd>
+	</dl><br>
+	
+	<dl><dt>Position</dt>
+	<dd><?php echo $use->var['blog_content']->position;?>
+	</dd></dl>
+</div><br />
+</fieldset>	<br />
+
+<fieldset><legend>Content</legend>
+<div id="bracketLong">
+  <?php echo nl2br($use->var['blog_content']->content);?>
+</div> <br />
+</fieldset><br />
+
+<fieldset><legend>Thumbnail</legend>
+
+<div id="bracketLong">
+<dl>
+<dd>
+<?php if(isset($this->var['thumbnail']) && !empty($this->var['thumbnail'])){ ?>
+<div id="negative"><input type="submit" name="submit" value='Remove Thumbnail'></div>
+<?php }?>
+</dd></dl>
+<br />
+<dl>
+<dd>
+<?php if(isset($this->var['thumbnail']) && !empty($this->var['thumbnail']) && $this->var['thumbnail']->path!=''){ ?>
+<img src='<?php echo $this->var['thumbnail']->path;?>' style='border:1px solid black;' align="top">
+File name : <?php echo $this->var['thumbnail']->name;?>
+<?php }else{?>
+No thumbnail uploaded
+<?php }?>
+</dd>
+</dl><br>
+</div><br><br><br>
+</fieldset><br />
+
+<fieldset><legend>Other Info</legend>
+<table class='data' id='show_area' cellspacing=0 cellpadding=0>
+<tr>
+<th width="20px">#</th>
+<th>Type</th>
+<th width="140">Name</th>
+<th>Value</th>
+<th>&nbsp;</th>
+</tr>
+<?php if(!empty($use->var['items'])){$total = 0;
+	foreach($use->var['items'] as $k=>$v){	$total++;?>
+	<tr id="name_<?php echo $count;?>Div">
+	<td valign='top'><?php echo $total;?></td>
+	<td valign='top'><?php echo $v->item_type;?></td>
+	<td valign='top'><?php if($v->item_type='custom'){echo $v->value_name;}?></td>
+	<td valign='top'><?php echo $v->value;?></td>
+	<td valign='top'><?php echo $v->value2;?></td>
+	</tr>
+<?php $count++;}}else{?>
+<tr><td colspan="6" align="center">No records</td></tr>
+<?php } ?>
+</table>
+</fieldset><br />
+
+<div id="button_wrapper">
+<form method="post" <?php common::formAction($use->group.'/'.$use->controller, 'index'); ?>>
+	<div id="negative"><input type="submit" name="submit" value="Back"/></div>
+</form>
+</div>

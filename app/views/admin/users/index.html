@@ -1,0 +1,47 @@
+<div id="button_wrapper">
+<form method="post" <?php common::formAction($use->group."/".$use->controller,'add');?>>
+<div id="button"><input type="submit" name="submit" value="New User" /></div>
+</form>
+</div>
+<div class="clear"></div>
+
+<table id='tabledata'>
+<tr>
+<th width="140px">Username</th>
+<th width="200px">Email</th>
+<th>Role</th>
+<th width="60px">Suspend</th>
+<th width="60px">Blocked</th>
+<th>Last Login</th>
+<th width="20px">&nbsp;</th>
+</tr>
+<?php if(!empty($use->var['users'])){ $count =0; 
+	foreach($use->var['users'] as $key=>$value){ $count++; ?>	
+	<tr>
+	<td><?php if($value->id != $_SESSION['auth']->id){
+		echo common::LinkTo($use->group.'/'.$use->controller,'edit',$value->username,array($value->id));
+	}else{
+		echo $value->email;
+	}
+	?></td>
+	<td><?php if($value->id != $_SESSION['auth']->id){
+		echo common::LinkTo($use->group.'/'.$use->controller,'edit',$value->email,array($value->id));
+	}else{
+		echo $value->email;
+	}
+	?></td>
+	<td><?php echo $value->role;?></td>
+	<td><?php echo yesNo($value->suspend);?></td>
+	<td><?php if($value->blocked==1){
+			echo common::LinkTo($use->group.'/'.$use->controller,'unblocked',"Unblock",array($value->id));
+		}else{echo 'No';}?></td>
+	<td><?php echo formatDate($value->last_login);?></td>
+	<td align="center"><?php 
+			echo common::imageLinkTo($use->group.'/'.$use->controller,'delete',"trash.gif",array($value->id),"onclick=\"javascript:return confirm('Are you sure you want to delete this user?');\" ");
+	?></td>
+	</tr>
+<?php }}else{?>
+	<tr><td colspan="7" align="center">No records</td></tr>
+<?php }?>
+</table>
+<?php echo common::page($use->var['pagination']->records,$use->var['pagination']->page_no,$use->var['pagination']->page,$use->group,$use->controller,$use->action);?>

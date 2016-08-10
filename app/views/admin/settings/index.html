@@ -1,0 +1,68 @@
+<div id="fieldset_title">Company</div>
+<fieldset>
+<div id="bracket">
+<dl><dt>Name</dt><dd><?php echo $use->var['company']->name;?></dd></dl><br /><br />
+
+<dl><dt>(Main) Phone 1</dt><dd><?php echo $use->var['company']->phone_1;?></dd></dl>
+<dl><dt>Phone 2</dt><dd><?php echo $use->var['company']->phone_2;?></dd></dl>
+<dl><dt>Fax</dt><dd><?php echo $use->var['company']->fax;?></dd></dl>
+<dl><dt>Email</dt><dd><?php echo $use->var['company']->email;?></dd></dl>
+</div>
+<div id="bracket">
+<dl><dt>Address</dt><dd><?php echo $use->var['company']->address1.'<br>';
+if($use->var['company']->address2!=''){ echo $use->var['company']->address2.'<br>'; }
+if($use->var['company']->city!=''){ echo $use->var['company']->city.' '; }
+if($use->var['company']->state!=''){ echo $use->var['company']->state.' '; }
+echo $use->var['company']->country.' '.$use->var['company']->postcode;?>
+</dd></dl>
+</div><br />
+</fieldset><br>
+
+<div id="button_wrapper">
+<form method="post" <?php Common::formAction($use->group.'/'.$use->controller, 'update_company'); ?>>
+<div id="button"><INPUT type=submit name="submit" value="Update Company"></div>
+</form>
+</div><br />
+
+<div id="fieldset_title">System &amp; Website Settings</div>
+<fieldset>
+<div id="bracket">
+<dl><dt>Default Country</dt><dd><?php echo $use->var['settings']->country;?></dd></dl>
+</div>
+<div id="bracket"></div><br />
+</fieldset><br>
+
+<fieldset>
+<div id="bracket">
+<dl><dt>Lock</dt><dd><?php echo yesNo($use->var['settings']->lock_website);?></dd></dl>
+<dl><dt>Reason</dt><dd><?php echo $use->var['settings']->lock_reason;?></dd></dl>
+</div>
+<div id="bracket">
+<dl><dt>Default Contact Email</dt><dd><?php echo $use->var['settings']->contact_email;?></dd></dl>
+<dl><dt>Default Reply Email</dt><dd><?php echo $use->var['settings']->reply_email;?></dd></dl>
+</div><br />
+</fieldset><br>
+
+<fieldset>
+<div id="bracket">
+<dl>
+    <dt>Google Analytic Code</dt>
+	<dd><?php echo htmlspecialchars(nl2br($use->var['settings']->trackingcode));?></dd>
+</dl>
+</div>
+<div id="bracket">
+<dl><dt>Meta Keywords</dt><dd><?php echo nl2br($use->var['settings']->metakey);?></dd></dl>	
+<dl><dt>Meta Description</dt><dd><?php echo nl2br($use->var['settings']->metadesc);?></dd></dl>	
+</div>
+</fieldset><br />
+
+<div id="button_wrapper">
+<form method="post" <?php Common::formAction($use->group.'/'.$use->controller, 'update_settings'); ?>>
+<div id="button"><INPUT type=submit name="submit" value="Change Settings"></div>
+</form>
+<form method="post" <?php Common::formAction($use->group.'/'.$use->controller, 'search_replace'); ?>>
+<div id="negative"><INPUT type=submit name="submit" value="Search and replace"></div>
+</form>
+</div>
+
+

@@ -1,0 +1,81 @@
+<div id="button_wrapper">
+<form method="post" <?php common::formAction($use->group."/".$use->controller,'add');?>>
+<div id="button"><input type="submit" name="submit" value="New Page" /></div>
+</form>
+<form method="post" <?php common::formAction($use->group."/".$use->controller,'add_category');?>>
+<div id="button"><input type="submit" name="submit" value="New Category" /></div>
+</form>
+</div>
+<div class="clear"></div>
+
+<div id="tabmenu">
+<ul>
+<li id="current"><a href="<?php echo common::Path($use->group.'/'.$use->controller, 'index'); ?>" title="Pages">Pages</a></li>
+<li class="right"><a href="<?php echo common::Path($use->group.'/'.$use->controller, 'category');?>" title="Categories">Categories</a></li>
+</ul>
+</div><div class="clear"></div>
+
+<form method="post">
+<fieldset>
+<div id="bracketLong">
+<dl><dd>&nbsp;</dd>
+	<dd><input type="text" name="keyword" size="40" value="<?php echo common::setField('keyword',$use->var['keyword']);?>" /><br />
+	Enter title, category, or template name to search</dd>
+	<dd>
+	<select name="status" title="status">
+	    <option value="all" <?php if(common::setField('status',$use->var['status'])=='all'){echo "selected='selected'";}?>>All active pages</option>
+		<option value="draft" <?php if(common::setField('status',$use->var['status'])=='draft'){echo "selected='selected'";}?>>Draft</option>
+		<option value="published" <?php if(common::setField('status',$use->var['status'])=='published'){echo "selected='selected'";}?>>Published</option>
+		<option value="archived" <?php if(common::setField('status',$use->var['status'])=='archived'){echo "selected='selected'";}?>>Archived</option>
+	</select>
+	</dd>
+	<dd><div id="button"><input type="submit" name="search" value="Search" /></div> </dd>
+</dl>		    
+</div>
+</fieldset>
+</form><br />
+
+<table id='tabledata'>
+<tr>
+<th>Title</th>
+<th>Alias</th>
+<th>Category</th>
+<th>Template</th>
+<th width="50px">Position</th>
+<th width="50px">Status</th>
+<th width="80px">Publish Date</th>
+<th width="80px">Last Modified</th>
+<th width="20px">&nbsp;</th>
+</tr>
+<?php if (!empty($use->var['blog_content'])) {
+	foreach ($use->var['blog_content'] as $key=>$value) {
+	$view = 'edit';
+	if($value->archived==1){$view ='view';}
+	 ?>	
+	<tr>
+	<td><?php echo common::LinkTo($use->group.'/'.$use->controller, $view, $value->title, array($value->id)); ?></td>
+	<td><?php echo $value->alias;?></td>
+	<td><?php echo $value->category;?></td>
+	<td><?php echo $value->template;?></td>
+	<td><?php echo $value->position;?></td>
+	<td><?php if($value->archived==1){
+		echo 'Archived';
+	}else{
+		if($value->published==1){echo 'Published';}else{echo 'Draft';}
+	}
+	?></td>
+	<td><?php echo formatDate($value->date_published);?></td>
+	<td><?php echo formatDate($value->date_modified);?></td>
+	<td align="center"><?php 
+	if($value->published==0){
+		echo common::imageLinkTo($use->group.'/'.$use->controller,'delete',"trash.gif",array($value->id),"onclick=\"javascript:return confirm('Are you sure you want to delete this page?');\" ");
+	} ?></td>
+	</tr>
+<?php }} else { ?>
+	<tr><td colspan="9" align="center">No records</td></tr>
+<?php } ?>
+</table>
+<?php 
+$status = urlencode($this->var['status']);
+$keyword = urlencode($this->var['keyword']);
+echo common::page($use->var['pagination']->records, $use->var['pagination']->page_no, $use->var['pagination']->page, $use->group, $use->controller, $use->action,array($status,$keyword)); ?>
